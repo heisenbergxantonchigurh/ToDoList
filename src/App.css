@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body{
+  height: 100vh;
+  background: linear-gradient(-45deg, #df89b5 0%, #bfd9fe 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+body ul{
+  list-style-type: circle;
+}
+.listItem{
+  list-style-type: circle;
+}
+
+.listItem:hover{
+  cursor: default;
+}
+
+.completed{
+  list-style-type: disc;
+  text-decoration: line-through;
+  font-weight: lighter;
+}
+
+
+.toDoListContainer{
+  background: #fff;
+  width: 340px;
+  height: 540px;
+  padding: 15px 15px;
+  gap: 2px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+}
+
+.toDoListContainer .toDoHeader{
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+  width: 100%;
+  height: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toDoHeader h2 {
+  background: linear-gradient(45deg, #df89b5 0%, #bfd9fe 100%);
+  border-radius: 10px;
+  width: 100%;
+  height: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: larger;
+}
+
+
+.toDoListContainer .toDoList{
+  height: 60%;
+  overflow: scroll;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.toDoListContainer .toDoList li{
+  transform: translateX(30px);
+}
+
+
+
+.toDoList::-webkit-scrollbar {
+  display: none;
+}
+
+
+
+
+.toDoFooter {
+  bottom: 0;
+  height: 25%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+  border-radius: 10px;
+  background: linear-gradient(45deg, #df89b5 0%, #bfd9fe 100%);
+  gap: -30px;
+  align-items: center;
+  justify-content: center;
+  transition: all 1 ease-in-out;
+}
+
+.addDeleteButtons{
+  display: flex;
+  gap: 2%;
+  transform: translateY(-10px);
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  height: 60%;
+  width: 100%;
+}
+
+.addDeleteButtons button, .newTaskAddButton{
+  width: 145px;
+  height: 50px;
+  border-radius: 10px;
+  border: none;
+  background: white;
+  color: #000;
+  font-size: 15px;
+  padding: 2px 2px;
+  cursor: pointer;
+}
+
+.toDoFooter .addInput{
+  width: 100%;
+  height: 30%;
+  display: none;
+  /* align-items: center; */
+  /* justify-content: center; */
+  /* visibility: hidden; */
+}
+
+.addInput .addNewForm{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  gap: 5px;
+  height: 50px;
+  transform: translateY(-7px);
+}
+
+.addInput .newTaskInput{
+  width: 75%;
+  height: 100%;
+  border-radius: 10px;
+  border: none;
+  padding: 10px;
+}
+
+.addInput .newTaskAddButton{
+  width: 25%;
+  height: 100%;
+}
+
+/* 
+.visible{
+  visibility: visible;
+} */
