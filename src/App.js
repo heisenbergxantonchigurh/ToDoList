@@ -1,29 +1,63 @@
 import "./App.css";
-import { useState } from "react";
 import data from "./Components/data.json";
+import React, { useState } from "react";
 
-function ListItem({ id, task, complete, handleClick }) {
+function ListItem({ key, task, handleClick }) {
   return (
-    <li className="listItem" id={id} onClick={handleClick}>
+    <li key={key} onClick={handleClick}>
       {task}
     </li>
   );
 }
 
 function App() {
-  const [listItems, setListItems] = useState(
-    data.map((item) => (
+  const [listItems, setListItems] = useState(makeList());
+
+  function makeList() {
+    const list = data.map((item) => (
       <ListItem
         key={item.id}
         task={item.task}
-        handleClick={(e) => itemClicked(e, item.id)}
+        handleClick={(e) => toggleCompletion(e, item.id)}
       />
-    ))
-  );
-  function itemClicked(e, id) {
-    e.target.classList.toggle("completed");
+    ));
+    return list;
+  }
+
+  function toggleCompletion(e, id) {
+    e.target.classList.toggle("complete");
     data[id - 1].complete = !data[id - 1].complete;
   }
+
+  function deleteCompleted() {
+    data = data.filter((item) => item.complete === false);
+    setListItems(makeList());
+  }
+
+  let [newItem, setNewItem] = useState(null);
+
+  function handleChange(e) {
+    if (e.target.value !== null) {
+      setNewItem(e.target.value);
+    }
+  }
+
+  function handleAdd(e) {
+    e.preventDefault();
+    if (newItem) {
+      data = [
+        ...data,
+        {
+          id: listItems.length + 1,
+          task: newItem,
+          complete: false,
+        },
+      ];
+      setListItems(makeList());
+    }
+    setNewItem(null);
+  }
+
   let display = 0;
   function togglevisiblity() {
     let div = document.getElementById("addInput");
@@ -36,45 +70,16 @@ function App() {
     }
   }
 
-  const [newItem, setNewItem] = useState(null);
-  const handleChange = (event) => {
-    let temp = event.target.value;
-    setNewItem(temp);
-  };
-
-  const addNewItem = (e) => {
-    e.preventDefault();
-    if (newItem !== null) {
-      setListItems([
-        ...listItems,
-        <ListItem
-          key={listItems.length}
-          task={newItem}
-          handleClick={(e) => itemClicked(e)}
-        />,
-      ]);
-      setNewItem(null);
-    }
-  };
-  const deleteCompleted = () => {
-    let temp = data.filter((item) => item.complete === false);
-    setListItems(
-      temp.map((item) => (
-        <ListItem
-          key={item.id}
-          task={item.task}
-          handleClick={(e) => itemClicked(e, item.id)}
-        />
-      ))
-    );
-  };
+  
 
   return (
     <div className="toDoListContainer">
       <div className="toDoHeader">
-        <h2 className="toDoListTitle">Simple ToDo List App</h2>
+        <h2 className="toDoListTitle">ToDo List App</h2>
       </div>
-      <div className="toDoList">{listItems}</div>
+      <div className="toDoList">
+        <ul className="listItems">{listItems}</ul>
+      </div>
       <div className="toDoFooter">
         <div className="addDeleteButtons">
           <button className="deleteButton" onClick={deleteCompleted}>
@@ -92,7 +97,7 @@ function App() {
               placeholder="Add a new task"
               onChange={(e) => handleChange(e)}
             />
-            <button className="newTaskAddButton" onClick={(e) => addNewItem(e)}>
+            <button className="newTaskAddButton" onClick={(e) => handleAdd(e)}>
               Add
             </button>
           </form>
